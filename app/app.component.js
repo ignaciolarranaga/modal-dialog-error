@@ -1,7 +1,10 @@
 "use strict";
 var core_1 = require("@angular/core");
+var modal_dialog_1 = require("nativescript-angular/modal-dialog");
+var activity_indicator_dialog_component_1 = require("./activity-indicator-dialog.component");
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(_modalDialogService) {
+        this._modalDialogService = _modalDialogService;
         this.counter = 16;
     }
     Object.defineProperty(AppComponent.prototype, "message", {
@@ -17,14 +20,19 @@ var AppComponent = (function () {
         configurable: true
     });
     AppComponent.prototype.onTap = function () {
-        this.counter--;
+        // Open the activity dialog
+        var options = {
+            context: { waitingText: "Waiting!!" },
+            fullscreen: true
+        };
+        this._modalDialogService.showModal(activity_indicator_dialog_component_1.ActivityIndicatorDialog, options);
     };
     AppComponent = __decorate([
         core_1.Component({
             selector: "my-app",
             templateUrl: "app.component.html",
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [modal_dialog_1.ModalDialogService])
     ], AppComponent);
     return AppComponent;
 }());
